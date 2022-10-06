@@ -2,6 +2,7 @@ package com.isil.test.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -20,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.isil.test.CrearMascotaActivity;
+import com.isil.test.CrearMascotaFragment;
 import com.isil.test.R;
 import com.isil.test.model.Mascota;
 
@@ -27,15 +30,17 @@ public class MascotaAdapter extends FirestoreRecyclerAdapter<Mascota, MascotaAda
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     Activity activity;
+    FragmentManager fm;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
      *
      * @param options
      */
-    public MascotaAdapter(@NonNull FirestoreRecyclerOptions<Mascota> options, Activity activity) {
+    public MascotaAdapter(@NonNull FirestoreRecyclerOptions<Mascota> options, Activity activity, FragmentManager fm) {
         super(options);
         this.activity = activity;
+        this.fm = fm;
     }
 
     @Override
@@ -50,9 +55,19 @@ public class MascotaAdapter extends FirestoreRecyclerAdapter<Mascota, MascotaAda
         viewHolder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Enviar data por activity
                 Intent i = new Intent(activity, CrearMascotaActivity.class);
                 i.putExtra("id_mascota", id);
-                activity.startActivity(i);
+                //activity.startActivity(i);
+
+                //Enviar data por Fragment
+                CrearMascotaFragment crearMascotaFragment = new CrearMascotaFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("id_mascota", id);
+                crearMascotaFragment.setArguments(bundle);
+                crearMascotaFragment.show(fm,"open fragment");
+
             }
         });
 
