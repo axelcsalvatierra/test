@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrarActivity">
+    tools:context=".LoginActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="0dp"
+        android:id="@+id/cardView2"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -22,41 +22,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <EditText
-                android:id="@+id/etNombreRegistro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Nombre"
-                android:inputType="textPersonName" />
-
-            <EditText
-                android:id="@+id/etCorreoRegistro"
+                android:id="@+id/etCorreoLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Correo"
-                android:inputType="textEmailAddress" />
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/etContrasenaRegistro"
+                android:id="@+id/etContrasenaLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Contraseña"
-                android:inputType="textPassword" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp" />
+                android:inputType="textPersonName"
+                android:password="true" />
 
             <Button
-                android:id="@+id/btnRegistrar"
+                android:id="@+id/btnIngresar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrar" />
+                android:text="Ingresar" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

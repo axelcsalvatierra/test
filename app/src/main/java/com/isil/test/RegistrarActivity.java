@@ -24,7 +24,7 @@ import java.util.Map;
 public class RegistrarActivity extends AppCompatActivity {
 
     Button btnRegistrar;
-    EditText etNombreRegistro, etCorreo, etContrasena;
+    EditText etNombreRegistro, etCorreoRegistro, etContrasenaRegistro;
     FirebaseFirestore mFirestore;
     FirebaseAuth mAuth;
 
@@ -37,16 +37,16 @@ public class RegistrarActivity extends AppCompatActivity {
 
 
         etNombreRegistro = findViewById(R.id.etNombreRegistro);
-        etCorreo = findViewById(R.id.etCorreo);
-        etContrasena = findViewById(R.id.etContrasena);
+        etCorreoRegistro = findViewById(R.id.etCorreoRegistro);
+        etContrasenaRegistro = findViewById(R.id.etContrasenaRegistro);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nombreUsuario = etNombreRegistro.getText().toString().trim();
-                String correoUsuario = etCorreo.getText().toString().trim();
-                String contrasenaUsuario = etContrasena.getText().toString().trim();
+                String correoUsuario = etCorreoRegistro.getText().toString().trim();
+                String contrasenaUsuario = etContrasenaRegistro.getText().toString().trim();
 
                 if(nombreUsuario.isEmpty() && correoUsuario.isEmpty() && contrasenaUsuario.isEmpty()){
                     Toast.makeText(RegistrarActivity.this, "Complete los datos", Toast.LENGTH_SHORT).show();
@@ -66,8 +66,8 @@ public class RegistrarActivity extends AppCompatActivity {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", id);
                 map.put("etNombreRegistro", nombreUsuario);
-                map.put("etCorreo", correoUsuario);
-                map.put("etContrasena", contrasenaUsuario);
+                map.put("etCorreoRegistro", correoUsuario);
+                map.put("etContrasenaRegistro", contrasenaUsuario);
 
                 mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.isil.test.adapter.MascotaAdapter;
@@ -17,12 +18,12 @@ import com.isil.test.model.Mascota;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_Agregar;
-    Button btnAgregarFragment;
+    Button btn_Agregar, btnAgregarFragment, btnCerrarSesion;
 
     RecyclerView mRecycler;
     MascotaAdapter mAdapter;
     FirebaseFirestore mFirestore;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         mRecycler = findViewById(R.id.RvSingle);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         Query query = mFirestore.collection("mascota");
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_Agregar = findViewById(R.id.btn_Agregar);
         btnAgregarFragment = findViewById(R.id.btnAgregarFragment);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
         btn_Agregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
                 CrearMascotaFragment fm = new CrearMascotaFragment();
                 fm.show(getSupportFragmentManager(), "Navegar a fragment");
 
+            }
+        });
+
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
     }
